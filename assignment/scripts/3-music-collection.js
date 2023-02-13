@@ -12,6 +12,9 @@ console.log(addToCollection('Songs of the Plains', 'Colter Wall', 2018));
 console.log(addToCollection('Texas Sun', 'Khruangbin and Leon Bridges', 2020));
 console.log(collection);
 showCollection(collection);
+console.log('Expected one result:', findByArtist('J Cole'));
+console.log('Expected no results:', findByArtist('Nickelback'));
+console.log('Expected two results:', findByArtist('Colter Wall'));
 // END TESTS //
 
 // ******************************* //
@@ -29,10 +32,22 @@ function addToCollection(title, artist, yearPublished){
     return album;
 }
 
+// logs how many albums are in collection and lists them
 function showCollection(array){
     console.log(`The number of albums in the collection is: ${array.length}`);
     for(let album of array){
         console.log(`${album.title} by ${album.artist}, published in ${album.yearPublished}`);
     }
+}
+
+function findByArtist(artist){
+    let matches = [];
+
+    for(let album of collection){
+        if(album.artist === artist){
+            matches.push(album);
+        }
+    }
+    return matches;
 }
 //END FUNCTION DEFINITIONS
