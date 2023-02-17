@@ -25,18 +25,20 @@ console.log('Expected no results:', findByArtist('Nickelback', collection));
 console.log('Expected two results:', findByArtist('Colter Wall', collection));
 
 // search - No Results
-console.log('Expecting an empty array:', search({ artist: 'Ray Charles', yearPublished: 1957 }, collection));
+console.log('Expecting an empty array:', search(collection, { artist: 'Ray Charles', yearPublished: 1957 }));
 // search - One result
 addToCollection('Ray Charles', 'Ray Charles', 1957, collection);
-console.log('Expecting one album:', search({ artist: 'Ray Charles', yearPublished: 1957 }, collection));
+console.log('Expecting one album:', search(collection, { artist: 'Ray Charles', yearPublished: 1957 }));
 // search - Two results
 addToCollection('The Great Ray Charles', 'Ray Charles', 1957, collection);
-console.log('Expecting two albums:', search({ artist: 'Ray Charles', yearPublished: 1957 }, collection));
+console.log('Expecting two albums:', search(collection, { artist: 'Ray Charles', yearPublished: 1957 }));
 // search - Expected not to match
 addToCollection('Crying Time', 'Ray Charles', 1966, collection);
-console.log('Expecting two albums:', search({ artist: 'Ray Charles', yearPublished: 1957 }, collection));
+console.log('Expecting two albums:', search(collection, { artist: 'Ray Charles', yearPublished: 1957 }));
 // search - Expected full collection list
-console.log('Expecting the full collection:', search({}, collection));
+console.log('Expecting the full collection:', search(collection, {}));
+console.log('Expecting the full collection:', search(collection));
+
 
 // END TESTS //
 
@@ -77,8 +79,12 @@ function findByArtist(artist, array){
 
 // Searches for any results that specifically matches the search criteria parameter of a given collection array,
 // if criteria is an empty object it will return the entire collection array parameter
-function search(criteria, array){
+function search(array, criteria){
     let matches = [];
+    //if no criteria argument was used, set criteria to an empty object
+    if(criteria === undefined){
+        criteria = {};
+    }
     for(let album of array){
         // Finds any exact matches to the criteria parameter and
         // disregards any criteria not provided in the search criteria argument object
